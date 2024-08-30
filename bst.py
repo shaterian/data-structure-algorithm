@@ -70,33 +70,53 @@ class BST:
             self.root = Node(value)
         self.__r_insert(self.root, value)
 
+    def find_min(self, current_node):
+        while current_node.left:
+            current_node = current_node.left
+        return current_node.value
+            
     def __delete_node(self, current_node, value):
-        if current_node == None:
+        if current_node is None:
             return None
-
-        if value < current_node.left:
+        
+        if value < current_node.value:
             current_node.left = self.__delete_node(current_node.left, value)
-        elif value > current_node.right:
+        elif value > current_node.value:
             current_node.right = self.__delete_node(current_node.right, value)
         else:
-            if current_node.right is None and current_node.let is None:
+            print("found node")
+            if current_node.left is None and current_node.right is None:
+                print("found node1")
                 return None
-            elif current_node.left:              
-                current_node = current_node.left
+            elif current_node.right is None:
+                print("found node2")
+                current_node =  current_node.left
+            elif current_node.left is None:
+                print("found node3")
+                current_node =  current_node.right
             else:
-                while current_node.left:
-                    current_node = current_node.left
-        return current_node 
-
+                print("node has childere")
+                subtree_min = self.find_min(current_node.right)
+                current_node.value = subtree_min
+                current_node.right = self.__delete_node(current_node.right, subtree_min)
+        return current_node
+    
+    def _delete_node(self, value):
+        self.__delete_node(self.root, value)
+        
 if __name__ == "__main__":
     tree = BST()
     tree.insert(2)
     tree.insert(1)
     tree.insert(3)
-    print(tree)
-    print(tree.root.left.value)
-    print(tree.root.right)
-    print(tree.contain(1))
-    print(tree.r_contains(1))
-
+    
+    print(f"root {tree.root.value}")
+    print(f"left {tree.root.left.value}")
+    print(f"right {tree.root.right.value}")
+    
+    tree._delete_node(2)
+    print("deleted tree")
+    print(f"root {tree.root.value}")
+    print(f"left {tree.root.left.value}")
+    print(f"right {tree.root.right}")
     
