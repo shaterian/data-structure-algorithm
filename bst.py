@@ -103,20 +103,72 @@ class BST:
     
     def _delete_node(self, value):
         self.__delete_node(self.root, value)
+    
+    def bfs(self,):
+        queue = []
+        result = []
+        current_node = self.root
+        queue.append(current_node)
+        while(len(queue) > 0):
+            current_node = queue.pop(0)
+            result.append(current_node.value)
+            if current_node.left:
+                queue.append(current_node.left)
+            if current_node.right:
+                queue.append(current_node.right)
+            
+        return result
+    
+    def dfs_pre_order(self, ):
+        result = []
+        def travers(node):
+            result.append(node.value)
+            if node.left:
+                travers(node.left)
+            if node.right:
+                travers(node.right)
+        travers(self.root)
+        
+        return result 
+    
+    def dfs_post_order(self, ):
+        result = []
+        def travers(node):
+            if node.left:
+                travers(node.left)
+            if node.right:
+                travers(node.right)
+            result.append(node.value)
+            
+        travers(self.root)
+        
+        return result 
+    
+    
+    def dfs_in_order(self, ):
+        result = []
+        def travers(node):
+            if node.left:
+                travers(node.left)
+            result.append(node.value)
+            if node.right:
+                travers(node.right)
+            
+        travers(self.root)
+        
+        return result 
         
 if __name__ == "__main__":
     tree = BST()
-    tree.insert(2)
-    tree.insert(1)
-    tree.insert(3)
+    tree.insert(47)
+    tree.insert(21)
+    tree.insert(76)
+    tree.insert(18)
+    tree.insert(27)
+    tree.insert(52)
+    tree.insert(82)
     
-    print(f"root {tree.root.value}")
-    print(f"left {tree.root.left.value}")
-    print(f"right {tree.root.right.value}")
-    
-    tree._delete_node(2)
-    print("deleted tree")
-    print(f"root {tree.root.value}")
-    print(f"left {tree.root.left.value}")
-    print(f"right {tree.root.right}")
-    
+    print(tree.bfs())
+    print(tree.dfs_in_order())
+    print(tree.dfs_pre_order())
+    print(tree.dfs_post_order())
