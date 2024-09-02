@@ -1,3 +1,4 @@
+from collections import deque
 class Node:
     def __init__(self, value):
         self.value = value
@@ -157,6 +158,26 @@ class BST:
         travers(self.root)
         
         return result 
+    def bfs_level(self,):
+        if self.root == None:
+            return []
+        
+        q = deque([self.root])
+        level_lists = []
+        while(q):
+            level_size = len(q)
+            level_list = []
+            for _ in range(level_size):
+                node = q.popleft()
+                level_list.append(node.value)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            level_lists.append(level_list)
+        return level_lists    
+        
+        
         
 if __name__ == "__main__":
     tree = BST()
@@ -172,3 +193,4 @@ if __name__ == "__main__":
     print(tree.dfs_in_order())
     print(tree.dfs_pre_order())
     print(tree.dfs_post_order())
+    print(tree.bfs_level())
