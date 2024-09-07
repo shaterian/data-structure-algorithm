@@ -65,10 +65,15 @@ def swap(index1, index2, my_list):
     
     
 def pivot(my_list, pivot_index, end_index):
+    print("Inside piviot")
     swap_index = pivot_index
     for i in range(pivot_index+1, end_index+1):
+        print(f"i: {i}, value { my_list[i]} pivot_index {pivot_index}, swap_index {swap_index}")
+        
         if my_list[i] < my_list[pivot_index]:
+            print(f"{my_list[i]} < {my_list[pivot_index]}")
             swap_index += 1
+            print(f"swap_index {swap_index}")
             swap(swap_index, i,my_list)
     swap(pivot_index,  swap_index, my_list)            
 

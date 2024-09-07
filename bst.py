@@ -175,22 +175,39 @@ class BST:
                 if node.right:
                     q.append(node.right)
             level_lists.append(level_list)
-        return level_lists    
+        return level_lists
+    
+    def max_height(self,):
+        def traverse(node):   
+            if not node:
+                return 0 
+            right_most = 0 
+            left_most = 0  
+            if node.right:
+                right_most = traverse(node.right)
+            if node.left:
+                left_most = traverse(node.left)
+            return max(right_most, left_most) + 1 
+        
+        return traverse(self.root) - 1
+    
+                
         
         
         
 if __name__ == "__main__":
     tree = BST()
     tree.insert(47)
-    tree.insert(21)
-    tree.insert(76)
-    tree.insert(18)
-    tree.insert(27)
-    tree.insert(52)
-    tree.insert(82)
+    tree.insert(4)
+    tree.insert(5)
+    tree.insert(6)
+    tree.insert(4.5)
+    tree.insert(4.6)
+    tree.insert(7)
     
-    print(tree.bfs())
-    print(tree.dfs_in_order())
-    print(tree.dfs_pre_order())
-    print(tree.dfs_post_order())
+    # print(tree.bfs())
+    # print(tree.dfs_in_order())
+    # print(tree.dfs_pre_order())
+    # print(tree.dfs_post_order())
     print(tree.bfs_level())
+    print(tree.max_height())
